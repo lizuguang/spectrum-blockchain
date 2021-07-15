@@ -1,6 +1,6 @@
 [TOC]
 
-#### spectrum-blockchain
+## spectrum-blockchain
 基于区块链的频谱资源交易平台，频谱资源管理中心将频谱资源授权给相关机构，机构可将频谱资源出售或出租给其他机构。
 
 #### 所需环境
@@ -11,7 +11,6 @@
 1. 环境初始化：首先，清理之前部署spectrum-blockchain时建立的镜像，运行/deploy中的./clear_images.sh；其次，
    清理Ubuntu中所有可能残留的文件，点击Ubuntu界面左下角图标，选择Disk Usage Analyzer,进入ubuntu,
    清理之前搭建spectrum-blockchain时，残留的文件；
-   ![img.png](images/img.png)
    
 2. 将项目拷贝到Linux相关目录下，并给予项目权限，执行 sudo chmod -R +x ./spectrum-blockchain/，此外非root用户需要加入docker组，
    sudo usermod -aG docker username；
