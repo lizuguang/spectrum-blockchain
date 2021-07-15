@@ -1,0 +1,9 @@
+{
+  "network-configs": {
+    "test-network": {
+      "name": "Spectrum Blockchain Network",
+      "profile": "./connection-profile/network.json"
+    }
+  },
+  "license": "Apache-2.0"
+}

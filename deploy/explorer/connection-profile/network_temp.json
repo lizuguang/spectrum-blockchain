@@ -1,0 +1,50 @@
+{
+  "name": "spectrum-blockchain-network",
+  "version": "1.0.0",
+  "client": {
+    "tlsEnable": true,
+    "adminCredential": {
+      "id": "admin",
+      "password": "123456"
+    },
+    "enableAuthentication": true,
+    "organization": "Org1MSP",
+    "connection": {
+      "timeout": {
+        "peer": {
+          "endorser": "300"
+        },
+        "orderer": "300"
+      }
+    }
+  },
+  "channels": {
+    "assetschannel": {
+      "peers": {
+        "peer0.org1.spectrumblockchain.com": {}
+      }
+    }
+  },
+  "organizations": {
+    "Org1MSP": {
+      "mspid": "Org1MSP",
+      "adminPrivateKey": {
+        "path": "/tmp/crypto/peerOrganizations/org1.spectrumblockchain.com/users/Admin@org1.spectrumblockchain.com/msp/keystore/priv_sk"
+      },
+      "peers": [
+        "peer0.org1.spectrumblockchain.com"
+      ],
+      "signedCert": {
+        "path": "/tmp/crypto/peerOrganizations/org1.spectrumblockchain.com/users/Admin@org1.spectrumblockchain.com/msp/signcerts/Admin@org1.spectrumblockchain.com-cert.pem"
+      }
+    }
+  },
+  "peers": {
+    "peer0.org1.spectrumblockchain.com": {
+      "tlsCACerts": {
+        "path": "/tmp/crypto/peerOrganizations/org1.spectrumblockchain.com/peers/peer0.org1.spectrumblockchain.com/tls/ca.crt"
+      },
+      "url": "grpc://peer0.org1.spectrumblockchain.com:7051"
+    }
+  }
+}

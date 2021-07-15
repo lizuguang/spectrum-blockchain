@@ -1,0 +1,418 @@
+definitions:
+  app.Response:
+    properties:
+      code:
+        type: integer
+      data:
+        type: object
+      msg:
+        type: string
+    type: object
+  v1.AccountIdBody:
+    properties:
+      accountId:
+        type: string
+    type: object
+  v1.AccountRequestBody:
+    properties:
+      args:
+        items:
+          $ref: '#/definitions/v1.AccountIdBody'
+        type: array
+    type: object
+  v1.DonatingListQueryByGranteeRequestBody:
+    properties:
+      grantee:
+        type: string
+    type: object
+  v1.DonatingListQueryRequestBody:
+    properties:
+      donor:
+        type: string
+    type: object
+  v1.DonatingRequestBody:
+    properties:
+      donor:
+        description: 转让人
+        type: string
+      grantee:
+        description: 接收人
+        type: string
+      objectOfDonating:
+        description: 转让对象
+        type: string
+    type: object
+  v1.RealEstateQueryRequestBody:
+    properties:
+      proprietor:
+        description: 所有者(用户)(用户AccountId)
+        type: string
+    type: object
+  v1.RealEstateRequestBody:
+    properties:
+      accountId:
+        description: 操作人ID
+        type: string
+      maxfrequency:
+        description: 频率最大值
+        type: number
+      proprietor:
+        description: 所有者(用户)(用户AccountId)
+        type: string
+      minfrequency:
+        description: 频率最小值
+        type: number
+      startate:
+        description: 开始时间
+        type: string
+      enddate:
+        description: 结束时间
+        type: string
+    type: object
+  v1.SellingByBuyRequestBody:
+    properties:
+      buyer:
+        description: 买家(买家AccountId)
+        type: string
+      objectOfSale:
+        description: 出租对象(正在出租的频谱RealEstateID)
+        type: string
+      seller:
+        description: 发起出租人、卖家(卖家AccountId)
+        type: string
+    type: object
+  v1.SellingListQueryByBuyRequestBody:
+    properties:
+      buyer:
+        description: 买家(买家AccountId)
+        type: string
+    type: object
+  v1.SellingListQueryRequestBody:
+    properties:
+      seller:
+        description: 发起出租人、卖家(卖家AccountId)
+        type: string
+    type: object
+  v1.SellingRequestBody:
+    properties:
+      objectOfSale:
+        description: 出租对象(正在出租的频谱RealEstateID)
+        type: string
+      price:
+        description: 价格
+        type: number
+      salePeriod:
+        description: 智能合约的有效期(单位为天)
+        type: integer
+      seller:
+        description: 发起出租人、卖家(卖家AccountId)
+        type: string
+    type: object
+  v1.UpdateDonatingRequestBody:
+    properties:
+      donor:
+        description: 转让人
+        type: string
+      grantee:
+        description: 接收人
+        type: string
+      objectOfDonating:
+        description: 转让对象
+        type: string
+      status:
+        description: 需要更改的状态
+        type: string
+    type: object
+  v1.UpdateSellingRequestBody:
+    properties:
+      buyer:
+        description: 买家(买家AccountId)
+        type: string
+      objectOfSale:
+        description: 出租对象(正在出租的频谱RealEstateID)
+        type: string
+      seller:
+        description: 发起出租人、卖家(卖家AccountId)
+        type: string
+      status:
+        description: 需要更改的状态
+        type: string
+    type: object
+info:
+  contact:
+    email: lizgnuaa@163.com
+    name: lizuguang
+  description: 基于区块链技术的频谱交易系统api文档
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  title: 基于区块链技术的频谱交易系统api文档
+  version: "1.0"
+paths:
+  /api/v1/createDonating:
+    post:
+      parameters:
+      - description: donating
+        in: body
+        name: donating
+        required: true
+        schema:
+          $ref: '#/definitions/v1.DonatingRequestBody'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 发起转让
+  /api/v1/createRealEstate:
+    post:
+      parameters:
+      - description: realEstate
+        in: body
+        name: realEstate
+        required: true
+        schema:
+          $ref: '#/definitions/v1.RealEstateRequestBody'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 新建频谱(管理员)
+  /api/v1/createSelling:
+    post:
+      parameters:
+      - description: selling
+        in: body
+        name: selling
+        required: true
+        schema:
+          $ref: '#/definitions/v1.SellingRequestBody'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 发起出租
+  /api/v1/createSellingByBuy:
+    post:
+      parameters:
+      - description: sellingByBuy
+        in: body
+        name: sellingByBuy
+        required: true
+        schema:
+          $ref: '#/definitions/v1.SellingByBuyRequestBody'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 买家购买
+  /api/v1/hello:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 测试输出Hello
+  /api/v1/queryAccountList:
+    post:
+      parameters:
+      - description: account
+        in: body
+        name: account
+        required: true
+        schema:
+          $ref: '#/definitions/v1.AccountRequestBody'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 获取账户信息
+  /api/v1/queryDonatingList:
+    post:
+      parameters:
+      - description: donatingListQuery
+        in: body
+        name: donatingListQuery
+        required: true
+        schema:
+          $ref: '#/definitions/v1.DonatingListQueryRequestBody'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 查询转让列表(可查询所有，也可根据发起转让人查询)
+  /api/v1/queryDonatingListByGrantee:
+    post:
+      parameters:
+      - description: donatingListQueryByGrantee
+        in: body
+        name: donatingListQueryByGrantee
+        required: true
+        schema:
+          $ref: '#/definitions/v1.DonatingListQueryByGranteeRequestBody'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 根据接收人(接收人AccountId)查询转让(接收的)(供接收人查询)
+  /api/v1/queryRealEstateList:
+    post:
+      parameters:
+      - description: realEstateQuery
+        in: body
+        name: realEstateQuery
+        required: true
+        schema:
+          $ref: '#/definitions/v1.RealEstateQueryRequestBody'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 获取频谱信息(空json{}可以查询所有，指定proprietor可以查询指定用户的频谱资源)
+  /api/v1/querySellingList:
+    post:
+      parameters:
+      - description: sellingListQuery
+        in: body
+        name: sellingListQuery
+        required: true
+        schema:
+          $ref: '#/definitions/v1.SellingListQueryRequestBody'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 查询出租(可查询所有，也可根据发起出租人查询)(发起的)
+  /api/v1/querySellingListByBuyer:
+    post:
+      parameters:
+      - description: sellingListQueryByBuy
+        in: body
+        name: sellingListQueryByBuy
+        required: true
+        schema:
+          $ref: '#/definitions/v1.SellingListQueryByBuyRequestBody'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 根据参与出租人、买家(买家AccountId)查询出租(参与的)
+  /api/v1/updateDonating:
+    post:
+      parameters:
+      - description: updateDonating
+        in: body
+        name: updateDonating
+        required: true
+        schema:
+          $ref: '#/definitions/v1.UpdateDonatingRequestBody'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 更新转让状态（确认接收、取消）
+  /api/v1/updateSelling:
+    post:
+      parameters:
+      - description: updateSelling
+        in: body
+        name: updateSelling
+        required: true
+        schema:
+          $ref: '#/definitions/v1.UpdateSellingRequestBody'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/app.Response'
+      summary: 更新出租状态（买家确认、买卖家取消）Status取值为 完成"done"、取消"cancelled" 当处于出租中状态，卖家要取消时，buyer为""空
+swagger: "2.0"
